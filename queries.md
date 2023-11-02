@@ -26,6 +26,7 @@ projection:{name:1, ipo:1}
 
 query:{ $and : [{founded_year : {$lt : 2005}}, {number_of_employees : {$lt : 1000}}]}
 sort: {number_of_employees:-1}
+limit: 10
 
 ### 6. All the companies that don't include the `partners` field.
 
@@ -33,19 +34,23 @@ query:{ partners : { $exists: false} }
 
 ### 7. All the companies that have a null type of value on the `category_code` field.
 
-<!-- Your Code Goes Here -->
+query:{category_code: {$eq:null}}
 
 ### 8. All the companies that have at least 100 employees but less than 1000. Retrieve only the `name` and `number of employees` fields.
 
-<!-- Your Code Goes Here -->
+query:{$and :  [{number_of_employees: {$gte: 100}}, {number_of_employees : { $lt: 1000}}]}
+projection:{name:1,number_of_employees:1}
 
 ### 9. Order all the companies by their IPO price in a descending order.
 
-<!-- Your Code Goes Here -->
+query:{ipo : {$ne : null}}
+sort:{"ipo.valuation_amount":-1}
 
 ### 10. Retrieve the 10 companies with most employees, order by the `number of employees`
 
-<!-- Your Code Goes Here -->
+query:{number_of_employees : {$ne : null}}
+sort:{number_of_employees: -1}
+limit: 10
 
 ### 11. All the companies founded on the second semester of the year. Limit your search to 1000 companies.
 
